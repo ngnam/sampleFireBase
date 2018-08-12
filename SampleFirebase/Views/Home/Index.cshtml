@@ -1,0 +1,81 @@
+﻿@model IReadOnlyCollection<Firebase.Database.FirebaseObject<TaskModel>>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Read From API and post to database</h2>
+        <a asp-action="ReadFromApiAsync" asp-controller="Home">Read From API</a>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Sample Insert data post to database</h2>
+        <form class="form-horizontal" method="post" asp-controller="Home" asp-action="InsertDataAsync">
+            <div class="form-group">
+                <label for="symbol">symbol</label>
+                <input class="form-control" id="symbol" name="symbol" />
+            </div>
+
+            <div class="form-group">
+                <label for="volume">volume</label>
+                <input class="form-control" id="volume" name="volume" />
+            </div>
+
+            <div class="form-group">
+                <label for="weightedAvgPrice">weightedAvgPrice</label>
+                <input class="form-control" id="weightedAvgPrice" name="weightedAvgPrice" />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-default">Insert data</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Sample show List Task Model</h2>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>symbol</th>
+                    <th>volume</th>
+                    <th>weightedAvgPrice</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Object.symbol</td>
+                            <td>@item.Object.volume</td>
+                            <td>@item.Object.weightedAvgPrice</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">No data</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
